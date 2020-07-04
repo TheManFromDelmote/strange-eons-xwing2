@@ -151,6 +151,10 @@ function create(diy) {
 	$Text = #xw2-pilot-text;
 	$ChargeValue = #xw2-pilot-charge-value;
 	$ChargeRecurring = #xw2-pilot-charge-recurring;
+	//here
+	$EnergyValue = #xw2-pilot-energy-value;
+	$EnergyRecurring = #xw2-pilot-energy-recurring;
+	$EnergyRecurringValue = #xw2-pilot-energy-recurring-value;
 	$ForceValue = #xw2-pilot-force-value;
 
 	$CustomShipModel = #xw2-pilot-custom-ship-model;
@@ -165,6 +169,9 @@ function create(diy) {
 	$CustomShipAgility = #xw2-pilot-custom-ship-agility-value;
 	$CustomShipHull = #xw2-pilot-custom-ship-hull-value;
 	$CustomShipShield = #xw2-pilot-custom-ship-shield-value;
+	//here
+	$CustomShipShieldRecurring = #xw2-pilot-custom-ship-shield-recurring;
+	$CustomShipShieldRecurringValue = #xw2-pilot-custom-ship-shield-recurring-value;
 	$CustomShipSize = #xw2-pilot-custom-ship-size;
 	$CustomShipActionStandard1 = #xw2-pilot-custom-ship-action-1-standard;
 	$CustomShipActionStandardRed1 = #xw2-pilot-custom-ship-action-1-standard-red;
@@ -307,6 +314,18 @@ function createInterface(diy,editor) {
 	chargeRecurringCheckbox = checkBox(@xw2-recurring);
 	bindings.add('ChargeRecurring',chargeRecurringCheckbox,[0]);
 
+	//here
+	energyValueItems = ['-','1','2','3','4','5','6','7','8','9'];
+	energyValueBox = comboBox(energyValueItems);
+	bindings.add('EnergyValue',energyValueBox,[0]);
+	
+	energyRecurringCheckbox = checkBox(@xw2-recurring);
+	bindings.add('EnergyRecurring',energyRecurringCheckbox,[0]);
+	
+	energyRecurringValueItems = ['1','2','3','4'];
+	energyRecurringValueBox = comboBox(energyRecurringValueItems);
+	bindings.add('EnergyRecurringValue',energyRecurringValueBox,[0]);
+
 	forceValueItems = ['-','1','2','3'];
 	forceValueBox = comboBox(forceValueItems);
 	bindings.add('ForceValue',forceValueBox,[0]);
@@ -329,6 +348,9 @@ function createInterface(diy,editor) {
 	mainPanel.place(@xw2-pilottext,'span,grow,wrap para');
 	mainPanel.place(pilotTextArea,'span,grow,wrap para');
 	mainPanel.place(@xw2-charge-value,'',chargeValueBox,'wmin 52',chargeRecurringCheckbox,'wrap');
+	//mainPanel.place(@xw2-energy-value,'',energyValueBox,'wmin 52',energyRecurringCheckbox,'wrap');
+	//here
+	mainPanel.place(@xw2-energy-value,'',energyValueBox,'wmin 52',energyRecurringCheckbox,'wmin 52',energyRecurringValueBox,'wmin 52, wrap');
 	mainPanel.place(@xw2-force-value,'',forceValueBox,'wmin 52, wrap');
 	mainPanel.place(separator(),'span,growx,wrap para');
 	mainPanel.place(pilotPanel,'span,growx,wrap');
@@ -386,6 +408,14 @@ function createInterface(diy,editor) {
 		'11','12','13','14','15','16','17','18','19','20'];
 	customShieldBox = comboBox(shieldItems);
 	bindings.add('CustomShipShield',customShieldBox,[0,2]);
+
+	//here
+	customShieldRecurringCheckbox = checkBox(@xw2-recurring);
+	bindings.add('CustomShipShieldRecurring',customShieldRecurringCheckbox,[0]);
+	
+	customShieldRecurringValueItems = ['1','2','3','4'];
+	customShieldRecurringValueBox = comboBox(customShieldRecurringValueItems);
+	bindings.add('CustomShipShieldRecurringValue',customShieldRecurringValueBox,[0]);
 
 	actionItems = [];
 	actionItems.push(ListItem('-','-'));
@@ -466,7 +496,10 @@ function createInterface(diy,editor) {
 	customShipPanel.place(@xw2-size,'',customSizeBox,'wmin 100,span 2,wrap para');
 	customShipPanel.place(@xw2-agility-value,'',customAgilityBox,'wmin 52,wrap');
 	customShipPanel.place(@xw2-hull-value,'',customHullBox,'wmin 52,wrap');
-	customShipPanel.place(@xw2-shield-value,'',customShieldBox,'wmin 52,span 2,wrap para');
+	//customShipPanel.place(@xw2-shield-value,'',customShieldBox,'wmin 52,span 2,wrap para');
+	//here
+	customShipPanel.place(@xw2-shield-value,'',customShieldBox,'wmin 52',customShieldRecurringCheckbox,'wmin 52',customShieldRecurringValueBox,'wmin 52, wrap');
+	//customShipPanel.place(@xw2-shield-value,'',customShieldBox,'wmin 120',shieldRecurringCheckbox,'wmin 52',shieldRecurringValueBox,'wmin 52, wrap');
 	customShipPanel.place(@xw2-attack + " 1",'',customAttackArcBox1, 'wmin 120',customAttackValueBox1,'wmin 52,wrap');
 	customShipPanel.place(@xw2-attack + " 2",'',customAttackArcBox2, 'wmin 120',customAttackValueBox2,'wmin 52,wrap');
 	customShipPanel.place(@xw2-attack + " 3",'',customAttackArcBox3, 'wmin 120',customAttackValueBox3,'wmin 52,wrap para');
@@ -1353,7 +1386,10 @@ function paintFrontFaceInfo(g, diy, sheet, textBoxSize) {
 		if ($CustomShipAttackValue3 != '-') {stats.push([$CustomShipAttackArc3, $CustomShipAttackValue3, 0]);}
 		stats.push(['agility', $CustomShipAgility, 0]);
 		stats.push(['hull', $CustomShipHull, 0]);
-		if ($CustomShipShield != '-') {stats.push(['shield', $CustomShipShield, 0]);}
+		//if ($CustomShipShield != '-') {stats.push(['shield', $CustomShipShield, 0]);}
+		//here
+		if ($CustomShipShield != '-') {stats.push(['shield', $CustomShipShield, $CustomShipShieldRecurring, $CustomShipShieldRecurringValue, 0]);}
+		//if ($EnergyValue != '-')      {stats.push(['energy', $EnergyValue, $EnergyRecurring, $EnergyRecurringValue]);}
 	} else {
 		if (getShipStat($ShipModel, 'attack-1-value') != '-') {stats.push([getShipStat($ShipModel,'attack-1-arc'), getShipStat($ShipModel,'attack-1-value'), 0]);}
 		if (getShipStat($ShipModel, 'attack-2-value') != '-') {stats.push([getShipStat($ShipModel,'attack-2-arc'), getShipStat($ShipModel,'attack-2-value'), 0]);}
@@ -1363,6 +1399,9 @@ function paintFrontFaceInfo(g, diy, sheet, textBoxSize) {
 		if (getShipStat($ShipModel, 'shield-value') != '-') {stats.push(['shield', getShipStat($ShipModel,'shield-value'), 0]);}
 	}
 	if ($ChargeValue != '-') {stats.push( ['charge', $ChargeValue, $ChargeRecurring]);}
+	//here
+	//if ($EnergyValue != '-') {stats.push( ['energy', $EnergyValue, $EnergyRecurring]);}
+	if ($EnergyValue != '-') {stats.push( ['energy', $EnergyValue, $EnergyRecurring, $EnergyRecurringValue]);}
 	if ($ForceValue != '-') {stats.push( ['force', $ForceValue, 1]);}
 	if (textBoxSize == 'full') {
 		xCenterPoint = 268;
@@ -1397,7 +1436,34 @@ function paintFrontFaceInfo(g, diy, sheet, textBoxSize) {
 		if (stats[i][2] == '1') {
 			x = xi + 28;
 			y = y2 + 3;
-			sheet.drawTitle(g, Xwing2.textToIconChar('recurring'), Region(x.toString() + ',' + y.toString() + ',100,100'), Xwing2.iconFont, 13.5, sheet.ALIGN_CENTER);
+
+			//here
+			isfound = 0;
+			if (stats[i][3]) {
+				isfound = 1;
+				if (stats[i][3] == '1') {
+					isfound = 2;
+					sheet.drawTitle(g, Xwing2.textToIconChar('recurring'), Region(x.toString() + ',' + y.toString() + ',100,100'), Xwing2.iconFont, 13.5, sheet.ALIGN_CENTER);
+				} if (stats[i][3] == '2') {
+					sheet.drawTitle(g, Xwing2.textToIconChar('recurring'), Region(x.toString() + ',' + y.toString() + ',100,100'), Xwing2.iconFont, 13.5, sheet.ALIGN_CENTER);
+					sheet.drawTitle(g, Xwing2.textToIconChar('recurring'), Region(x.toString() + ',' + y.toString() + ',100,130'), Xwing2.iconFont, 13.5, sheet.ALIGN_CENTER);
+				} if (stats[i][3] == '3') {
+					sheet.drawTitle(g, Xwing2.textToIconChar('recurring'), Region(x.toString() + ',' + y.toString() + ',100,100'), Xwing2.iconFont, 13.5, sheet.ALIGN_CENTER);
+					sheet.drawTitle(g, Xwing2.textToIconChar('recurring'), Region(x.toString() + ',' + y.toString() + ',100,130'), Xwing2.iconFont, 13.5, sheet.ALIGN_CENTER);
+					sheet.drawTitle(g, Xwing2.textToIconChar('recurring'), Region(x.toString() + ',' + y.toString() + ',100,160'), Xwing2.iconFont, 13.5, sheet.ALIGN_CENTER);
+				} if (stats[i][3] == '4') {
+					sheet.drawTitle(g, Xwing2.textToIconChar('recurring'), Region(x.toString() + ',' + y.toString() + ',100,100'), Xwing2.iconFont, 13.5, sheet.ALIGN_CENTER);
+					sheet.drawTitle(g, Xwing2.textToIconChar('recurring'), Region(x.toString() + ',' + y.toString() + ',100,130'), Xwing2.iconFont, 13.5, sheet.ALIGN_CENTER);
+					sheet.drawTitle(g, Xwing2.textToIconChar('recurring'), Region(x.toString() + ',' + y.toString() + ',100,160'), Xwing2.iconFont, 13.5, sheet.ALIGN_CENTER);
+					sheet.drawTitle(g, Xwing2.textToIconChar('recurring'), Region(x.toString() + ',' + y.toString() + ',100,190'), Xwing2.iconFont, 13.5, sheet.ALIGN_CENTER);
+				}
+				
+			} else {
+				isfound = 0;
+				sheet.drawTitle(g, Xwing2.textToIconChar('recurring'), Region(x.toString() + ',' + y.toString() + ',100,100'), Xwing2.iconFont, 13.5, sheet.ALIGN_CENTER);
+			}
+
+			//sheet.drawTitle(g, Xwing2.textToIconChar('recurring'), Region(x.toString() + ',' + y.toString() + ',100,100'), Xwing2.iconFont, 13.5, sheet.ALIGN_CENTER);
 		}
 		dotList = Xwing2.calculateDottedCircle(stats[i][0], false);
 		for each (dot in dotList) {
@@ -1949,6 +2015,9 @@ function onClear() {
 	$Text = '';
 	$ChargeValue = '-';
 	$ChargeRecurring = 'no';
+	$EnergyValue = '-';
+	$EnergyRecurring = 'no';
+	$EnergyRecurringValue = '-';
 	$ForceValue = '-';
 
 	$CustomShipModel = '';
@@ -1963,6 +2032,9 @@ function onClear() {
 	$CustomShipAgility = '0';
 	$CustomShipHull = '1';
 	$CustomShipShield = '-';
+	//here
+	$CustomShipShieldRecurring = 'yes';
+	$CustomShipShieldRecurringValue = '4';
 	$CustomShipSize = 'small';
 	$CustomShipActionStandard1 = '-';
 	$CustomShipActionStandardRed1 = 'no';

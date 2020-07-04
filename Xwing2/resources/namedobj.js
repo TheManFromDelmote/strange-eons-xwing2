@@ -273,6 +273,7 @@ function Xwing2Object() {
 		box.setReplacementForTag('critical', '<icon>' + this.textToIconChar('critical') + '</icon>');
 		box.setReplacementForTag('crit', '<icon>' + this.textToIconChar('crit') + '</icon>');
 		box.setReplacementForTag('charge', '<icon>' + this.textToIconChar('charge') + '</icon>');
+		box.setReplacementForTag('energy', '<icon>' + this.textToIconChar('energy') + '</icon>');
 		box.setReplacementForTag('force', '<icon>' + this.textToIconChar('force') + '</icon>');
 		box.setReplacementForTag('straight', '<icon>' + this.textToIconChar('straight') + '</icon>');
 		box.setReplacementForTag('leftturn', '<icon>' + this.textToIconChar('leftturn') + '</icon>');
@@ -471,6 +472,7 @@ function Xwing2Object() {
 			case 'critical': iconChar = 'c'; break;
 			case 'crit': iconChar = 'c'; break;
 			case 'charge': iconChar = 'g'; break;
+			case 'energy': iconChar = '('; break;
 			case 'force': iconChar = 'h'; break;
 			case 'straight': iconChar = '8'; break;
 			case 'leftturn': iconChar = '4'; break;
@@ -597,6 +599,7 @@ function Xwing2Object() {
 			case 'hull':	pattern = [0, 0, 0, b, a, 1, b, 1, 1, a, 1, b, 1, 1, b, b, 1, b, a, 1, b, a, 0, 0]; break;
 			case 'shield':	pattern = [0, 0, 0, a, a, b, 1, b, a, 1, b, b, 1, 1, a, a, 1, b, a, 1, b, 1, 0, 0]; break;
 			case 'charge':	pattern = [0, 0, 0, b, 1, a, b, b, a, 1, a, 1, b, a, b, a, 1, a, 1, b, 1, 1, 0, 0]; break;
+			case 'energy':	pattern = [0, 0, 0, b, 1, a, b, b, a, 1, a, 1, b, a, b, a, 1, a, 1, b, 1, 1, 0, 0]; break;
 			case 'force':	pattern = [0, 0, 0, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.80, 0.85, 0.9, 0.95, 1, 0, 0]; break;
 			default: pattern = [0, 0, 0, a, b, b, a, a, b, 1, 1, a, b, 1, b, a, 1, b, b, 1, a, a, 0, 0]; // attack
 		}
